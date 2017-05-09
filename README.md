@@ -20,8 +20,9 @@ This module requires API key to function. You may subscribe a free API key at ht
 INSTALLATION
 ============
 To install this module, unzip the package and copy the following files to your web folder.
- i)   class.FraudLabsPro.php
- ii)  example.php
+
+- class.FraudLabsPro.php
+- example.php
 
 
 COPYRIGHT AND LICENCE
