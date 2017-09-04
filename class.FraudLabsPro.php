@@ -19,8 +19,9 @@
  * 	        API Key required, and if you do not have an API key, you may sign up free
  * 			at http://www.fraudlabspro.com
  */
+namespace FraudLabsPro;
 
-class FraudLabsPro {
+class Order {
 	private $apiKey;
 
 	// Constructor

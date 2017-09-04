@@ -1,7 +1,7 @@
 <?php
 require_once 'class.FraudLabsPro.php';
 
-$fraud = new FraudLabsPro('API_KEY_HERE');
+$fraud = new \FraudLabsPro\Order('API_KEY_HERE');
 
 // Prepare transaction information
 $params = [
