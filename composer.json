@@ -1,0 +1,25 @@
+{
+    "name": "fraudlabspro/fraudlabspro-php",
+    "version": "3.0.0",
+    "type": "library",
+    "description": "FraudLabs Pro PHP SDK.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "FraudLabs Pro",
+            "homepage": "http://www.fraudlabspro.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "FraudLabsPro": "lib/"
+        },
+        "psr-4": {
+            "FraudLabsPro\\": "lib/FraudLabsPro"
+        }
+    }
+}

@@ -1,11 +1,17 @@
 <?php
-require_once 'class.FraudLabsPro.php';
+// Preset PHP settings
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-$fraud = new \FraudLabsPro\Order('API_KEY_HERE');
+require_once 'lib/FraudLabsPro.php';
 
-// Prepare transaction information
-$params = [
-	'ip'		=> $_SERVER['REMOTE_ADDR'],
+// Configures FraudLabs Pro API key
+FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+
+// Order details
+$orderDetails = [
+	// IP parameter is optional, this library can detects IP address automatically
+	'ip'		=> '146.112.62.105',
 
 	'order'		=> [
 		'orderId'		=> '67398',
@@ -13,7 +19,7 @@ $params = [
 		'currency'		=> 'USD',
 		'amount'		=> '79.89',
 		'quantity'		=> 1,
-		'paymentMethod'	=> 'CREDITCARD',
+		'paymentMethod'	=> FraudLabsPro\Order::CREDIT_CARD,
 	],
 
 	'card'		=> [
@@ -42,19 +48,42 @@ $params = [
 	],
 ];
 
-// Validate the transaction with FraudLabs Pro
-$result = $fraud->validate($params);
+// Sends the order details to FraudLabs Pro
+$result = FraudLabsPro\Order::validate($orderDetails);
 
-if($result){
-	if($result->fraudlabspro_status != 'APPROVE'){
+if ($result) {
+	// Prints fraud result
+	echo '<h2>FraudLabs Pro Result</h2>';
+
+	echo '<pre>';
+
+	foreach ($result as $key => $value) {
+		echo '<strong>' . str_pad($key, 40) . '</strong>';
+		echo $value . "\n";
+	}
+
+	echo '</pre>';
+
+	if ($result->fraudlabspro_status != 'APPROVE') {
 		// Cancel the order
 	}
 
-	if($result->fraudlabspro_score > 80){
+	if ($result->fraudlabspro_score > 80) {
 		// High risk, better cancel the order
 	}
 
-	if($result->is_proxy_ip_address == 'Y'){
+	if ($result->is_proxy_ip_address == 'Y') {
 		// User cannot made purchase through proxy server, do something
+	}
+
+	if ($result->fraudlabspro_status == 'REVIEW') {
+		// Orders from US are trusted, approve and feedback to FarudLabs Pro
+		if ($result->ip_country == 'US' && $result->is_proxy_ip_address == 'N') {
+			FraudLabsPro\Order::feedback([
+				'id'		=> $result->fraudlabspro_id,
+				'status'	=> FraudLabsPro\Order::APPROVE,
+				'note'		=> 'We trust orders from US.',
+			]);
+		}
 	}
 }
