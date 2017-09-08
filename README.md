@@ -149,6 +149,42 @@ FraudLabsPro\Account::subscribe([
 ```
 
 
+### SMS Verification
+
+#### Send SMS Verification
+
+```
+require_once 'lib/FraudLabsPro.php';
+
+// Configures FraudLabs Pro API key
+FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+
+// Send SMS Verification
+FraudLabsPro\SMSVerification::sendsms([
+	'tel'			=> '+15616288674',
+	'mesg'			=> 'Hi, your OTP is <otp>.',
+	'country_code'		=> 'US',
+]);
+```
+
+
+
+#### Get SMS Verification Result
+
+```
+require_once 'lib/FraudLabsPro.php';
+
+// Configures FraudLabs Pro API key
+FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+
+// Get SMS Verification result
+FraudLabsPro\SMSVerification::verifysms([
+	'tran_id'		=> 'UNIQUE_TRANS_ID',
+	'otp'			=> 'OTP_RECEIVED',
+]);
+```
+
+
 
 # Reference
 
