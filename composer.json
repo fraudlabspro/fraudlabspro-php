@@ -1,6 +1,5 @@
 {
     "name": "fraudlabspro/fraudlabspro-php",
-    "version": "3.0.0",
     "type": "library",
     "description": "FraudLabs Pro PHP SDK to help merchants to detect fraud order and therefore reduce chargebacks.",
     "license": "MIT",
