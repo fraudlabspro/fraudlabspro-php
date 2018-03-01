@@ -271,7 +271,7 @@ FraudLabsPro\SMSVerification::verifysms([
 
 
 
-####Feedback Status
+#### Feedback Status
 
 | Feedback Status               | Description                              |
 | ----------------------------- | ---------------------------------------- |
