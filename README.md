@@ -21,7 +21,40 @@ This module requires API key to function. You may subscribe a free API key at ht
 
 Usage Example
 ============
-#### Validate Order
+### Validate Order
+
+#### Object Properties
+
+| Property Name                     | Property Type | Description                                                  |
+| --------------------------------- | ------------- | ------------------------------------------------------------ |
+| ip                                | string        | IP address of online transaction. It supports both IPv4 and IPv6 address format. |
+| billing->firstName   | string        | User's first name.                                           |
+| billing->lastName    | string        | User's last name.                                            |
+| billing->username    | string        | User's username.                                             |
+| billing->password    | string        | User's password.                                             |
+| billing->email       | string        | User's email address.                                        |
+| billing->phone       | string        | User's phone number.                                         |
+| billing->address     | string        | Street address of billing address.                           |
+| billing->city        | string        | City of billing address.                                     |
+| billing->state       | string        | State of billing address. It supports state codes, e.g. NY (New York), for state or province of United States or Canada. Please refer to [State & Province Codes](https://www.fraudlabspro.com/developer/reference/state-and-province-codes) for complete list. |
+| billing->postcode    | string        | Postal or ZIP code of billing address.                       |
+| billing->country     | string        | Country of billing address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States. Please refer to [Country Codes](https://www.fraudlabspro.com/developer/reference/country-codes) for complete list. |
+| order->orderId       | string        | Merchant identifier to uniquely identify a transaction. It supports maximum of 15 characters user order id input. |
+| order->note          | string        | Merchant description of an order transaction. It supports maximum of 200 characters. |
+| order->amount        | float         | Amount of the transaction.                                   |
+| order->quantity      | integer       | Total quantity of the transaction.                           |
+| order->currency      | string        | Currency code used in the transaction. It requires the input of ISO-4217 (3 characters) currency code, e.g. USD for US Dollar. Please refer to [Currency Codes](https://www.fraudlabspro.com/developer/reference/currency-codes) for complete list. |
+| order->department    | string        | Merchant identifier to uniquely identify a product or service department. |
+| order->paymentMethod | string        | Payment mode of transaction. Please see references section.  |
+| card->number         | string        | Billing credit card number or BIN number.                    |
+| card->avs            | string        | The single character AVS result returned by the credit card processor. Please refer to [AVS & CVV2 Response Codes](https://www.fraudlabspro.com/developer/reference/avs-and-cvv2-response-codes) for details. |
+| card->cvv            | string        | The single character CVV2 result returned by the credit card processor. Please refer to [AVS & CVV2 Response Codes](https://www.fraudlabspro.com/developer/reference/avs-and-cvv2-response-codes) for details. |
+| shipping->address    | string        | Street address of shipping address.                          |
+| shipping->city       | string        | City of shipping address.                                    |
+| shipping->state      | string        | State of shipping address. It supports state codes, e.g. NY - New York, for state or province of United States or Canada. Please refer to [State & Province Codes](https://www.fraudlabspro.com/developer/reference/state-and-province-codes) for complete list. |
+| shipping->postcode   | string        | Postal or ZIP code of shipping address.                      |
+| shipping->country    | string        | Country of shipping address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States. Please refer to [Country Codes](https://www.fraudlabspro.com/developer/reference/country-codes) for complete list. |
+
 
 ```
 <?php
@@ -78,7 +111,15 @@ $result = FraudLabsPro\Order::validate($orderDetails);
 
 
 
-#### Feedback
+### Feedback
+
+#### Object Properties
+
+| Property Name | Property Type | Description                                                  |
+| ------------- | ------------- | ------------------------------------------------------------ |
+| id            | string        | Unique transaction ID generated from **Validate** function.  |
+| status        | string        | Perform APPROVE, REJECT, or REJECT_BLACKLIST action to transaction.	Refer to [reference section](#feedback-status) for status code. |
+| note          | string        | Notes for the feedback request.                              |
 
 ```
 <?php
@@ -98,9 +139,28 @@ FraudLabsPro\Order::feedback([
 
 
 
-### Reseller Usage
+## Reseller Usage
 
-#### Create Account
+### Create Account
+
+#### Object Properties
+
+| Property Name | Property Type | Description                                                  |
+| ------------- | :-----------: | ------------------------------------------------------------ |
+| username      |    string     | Username of the new account.                                 |
+| email         |    string     | Email address of the new account.                            |
+| name          |    string     | Full name of the new user.                                   |
+| address1      |    string     | Address field.                                               |
+| address2      |    string     | Additional address field.                                    |
+| city          |    string     | City name.                                                   |
+| state         |    string     | State name.                                                  |
+| postcode      |    string     | ZIP code/Postal code.                                        |
+| country       |    string     | Country code.  It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States. Please refer to																[Country Codes](https://www.fraudlabspro.com/developer/reference/country-codes) for complete list. |
+| phone         |    string     | Phone number.                                                |
+| fax           |    string     | Fax number.                                                  |
+| company       |    string     | Company name.                                                |
+| industry      |    string     | Industry ID of the business involved. Please refer to													 [reference section](#business-industry) for complete list. |
+
 
 ```
 require_once 'lib/FraudLabsPro.php';
@@ -132,7 +192,14 @@ $result = FraudLabsPro\Account::create($userDetails);
 
 
 
-#### Subscribe Plan
+### Subscribe Plan
+
+#### Object Properties
+
+| Property Name | Property Type | Description                                                  |
+| ------------- | :-----------: | ------------------------------------------------------------ |
+| username      |    string     | Username of the account.                                     |
+| plan          |    string     | Plan code for the plan. Please refer to [reference section](#fraudlabs-pro-plan) for the complete list. |
 
 ```
 require_once 'lib/FraudLabsPro.php';
@@ -149,9 +216,9 @@ FraudLabsPro\Account::subscribe([
 ```
 
 
-### SMS Verification
+## SMS Verification
 
-#### Send SMS Verification
+### Send SMS Verification
 
 ```
 require_once 'lib/FraudLabsPro.php';
@@ -169,7 +236,7 @@ FraudLabsPro\SMSVerification::sendsms([
 
 
 
-#### Get SMS Verification Result
+### Get SMS Verification Result
 
 ```
 require_once 'lib/FraudLabsPro.php';
@@ -188,6 +255,8 @@ FraudLabsPro\SMSVerification::verifysms([
 
 # Reference
 
+#### Payment Method
+
 | Payment Method                       |
 | ------------------------------------ |
 | FraudLabsPro\Order::CREDIT_CARD      |
@@ -202,6 +271,8 @@ FraudLabsPro\SMSVerification::verifysms([
 
 
 
+####Feedback Status
+
 | Feedback Status               | Description                              |
 | ----------------------------- | ---------------------------------------- |
 | FraudLabsPro\Order::APPROVE   | Approves an order that under review status. |
@@ -209,6 +280,8 @@ FraudLabsPro\SMSVerification::verifysms([
 | FraudLabsPro\Order::BLACKLIST | Rejects and blacklists an order.         |
 
 
+
+#### Business Industry
 
 | Business Industry                        |
 | ---------------------------------------- |
@@ -228,6 +301,8 @@ FraudLabsPro\SMSVerification::verifysms([
 | FraudLabsPro\Account::HIGH_RISK_MERCHANTS |
 
 
+
+#### FraudLabs Pro Plan
 
 | FraudLabs Pro Plan           |
 | ---------------------------- |
