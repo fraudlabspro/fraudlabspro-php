@@ -220,6 +220,14 @@ FraudLabsPro\Account::subscribe([
 
 ### Send SMS Verification
 
+#### Object Properties
+
+| Property Name | Property Type | Description                                                  |
+| ------------- | :-----------: | ------------------------------------------------------------ |
+| tel           |    string     | The recipient mobile phone number in E164 format which is a plus followed by just numbers with no spaces or parentheses. |
+| mesg          |    string     | The message template for the SMS. Add <otp> as placeholder for the actual OTP to be generated. Max length is 140 characters. |
+| country_code  |    string     | ISO 3166 country code for the recipient mobile phone number. If parameter is supplied, then some basic telephone number validation is done. |
+
 ```
 require_once 'lib/FraudLabsPro.php';
 
@@ -237,6 +245,13 @@ FraudLabsPro\SMSVerification::sendsms([
 
 
 ### Get SMS Verification Result
+
+#### Object Properties
+
+| Property Name | Property Type | Description                                                  |
+| ------------- | :-----------: | ------------------------------------------------------------ |
+| tran_id       |    string     | The unique ID that was returned by the Send SMS Verification that triggered the OTP sms. |
+| otp           |    string     | The OTP that was sent to the recipient’s phone. |
 
 ```
 require_once 'lib/FraudLabsPro.php';
