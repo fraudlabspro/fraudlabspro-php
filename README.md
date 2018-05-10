@@ -288,11 +288,11 @@ FraudLabsPro\SMSVerification::verifysms([
 
 #### Feedback Status
 
-| Feedback Status               | Description                              |
-| ----------------------------- | ---------------------------------------- |
-| FraudLabsPro\Order::APPROVE   | Approves an order that under review status. |
-| FraudLabsPro\Order::REJECT    | Rejects an order than under review status. |
-| FraudLabsPro\Order::BLACKLIST | Rejects and blacklists an order.         |
+| Feedback Status                      | Description                                 |
+| ------------------------------------ | ------------------------------------------- |
+| FraudLabsPro\Order::APPROVE          | Approves an order that under review status. |
+| FraudLabsPro\Order::REJECT           | Rejects an order than under review status.  |
+| FraudLabsPro\Order::REJECT_BLACKLIST | Rejects and blacklists an order.            |
 
 
 
