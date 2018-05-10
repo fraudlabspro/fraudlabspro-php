@@ -13,7 +13,7 @@ class Order
 	 */
 	const APPROVE = 'APPROVE';
 	const REJECT = 'REJECT';
-	const BLACKLIST = 'REJECT_BLACKLIST';
+	const REJECT_BLACKLIST = 'REJECT_BLACKLIST';
 
 	/**
 	 * Payment methods.
@@ -102,7 +102,7 @@ class Order
 	public static function feedback($params = [])
 	{
 		$validStatuses = [
-			self::APPROVE, self::IGNORE, self::REJECT, self::BLACKLIST,
+			self::APPROVE, self::REJECT, self::REJECT_BLACKLIST,
 		];
 
 		$status = (isset($params['status'])) ? $params['status'] : '';
@@ -117,7 +117,7 @@ class Order
 			'source'			=> 'FraudLabsPro PHP SDK',
 			'source_version'	=> FraudLabsPro::VERSION,
 			'id'				=> (isset($params['id'])) ? $params['id'] : '',
-			'status'			=> $status,
+			'action'			=> $status,
 			'note'				=> (isset($params['note'])) ? $params['note'] : '',
 		];
 
