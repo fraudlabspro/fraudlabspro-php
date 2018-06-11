@@ -1,4 +1,5 @@
 <?php
+
 namespace FraudLabsPro;
 
 /**
@@ -9,6 +10,7 @@ class Order
 {
 	/**
 	 * Order statuses.
+	 *
 	 * @const string
 	 */
 	const APPROVE = 'APPROVE';
@@ -17,6 +19,7 @@ class Order
 
 	/**
 	 * Payment methods.
+	 *
 	 * @const string
 	 */
 	const CREDIT_CARD = 'CREDITCARD';
@@ -31,63 +34,64 @@ class Order
 
 	/**
 	 * Validate order for possible fraud.
-	 * @access public
-	 * @param array $params Parameters of order details.
-     * @return object FraudLabs Pro result in JSON object.
+	 *
+	 * @param array $params parameters of order details
+	 *
+	 * @return object fraudLabs Pro result in JSON object
 	 */
 	public static function validate($params = [])
 	{
 		$queries = [
-			'key'				=> Configuration::apiKey(),
-			'format'			=> 'json',
-			'source'			=> 'FraudLabsPro PHP SDK',
-			'source_version'	=> FraudLabsPro::VERSION,
-			'session_id'		=> session_id(),
-			'flp_check_sum'		=> (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
+			'key'            => Configuration::apiKey(),
+			'format'         => 'json',
+			'source'         => 'FraudLabsPro PHP SDK',
+			'source_version' => FraudLabsPro::VERSION,
+			'session_id'     => session_id(),
+			'flp_check_sum'  => (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
 
 			// Billing information
-			'ip'				=> (isset($params['ip'])) ? $params['ip'] : self::getClientIp(),
-			'first_name'		=> (isset($params['billing']['firstName'])) ? $params['billing']['firstName'] : '',
-			'last_name'			=> (isset($params['billing']['lastName'])) ? $params['billing']['lastName'] : '',
-			'username_hash'		=> (isset($params['billing']['username'])) ? self::doHash($params['billing']['username']) : '',
-			'password_hash'		=> (isset($params['billing']['password'])) ? self::doHash($params['billing']['password']) : '',
-			'email'				=> (isset($params['billing']['email'])) ? $params['billing']['email'] : '',
-			'email_domain'		=> (isset($params['billing']['email'])) ? substr($params['billing']['email'], strpos($params['billing']['email'], '@') + 1) : '',
-			'email_hash'		=> (isset($params['billing']['email'])) ? self::doHash($params['billing']['email']) : '',
-			'user_phone'		=> (isset($params['billing']['phone'])) ? preg_replace('/\D/', '', $params['billing']['phone']) : '',
-			'bill_addr'			=> (isset($params['billing']['address'])) ? $params['billing']['address'] : '',
-			'bill_city'			=> (isset($params['billing']['city'])) ? $params['billing']['city'] : '',
-			'bill_state'		=> (isset($params['billing']['state'])) ? $params['billing']['state'] : '',
-			'bill_zip_code'		=> (isset($params['billing']['postcode'])) ? $params['billing']['postcode'] : '',
-			'bill_country'		=> (isset($params['billing']['country'])) ? $params['billing']['country'] : '',
+			'ip'            => (isset($params['ip'])) ? $params['ip'] : self::getClientIp(),
+			'first_name'    => (isset($params['billing']['firstName'])) ? $params['billing']['firstName'] : '',
+			'last_name'     => (isset($params['billing']['lastName'])) ? $params['billing']['lastName'] : '',
+			'username_hash' => (isset($params['billing']['username'])) ? self::doHash($params['billing']['username']) : '',
+			'password_hash' => (isset($params['billing']['password'])) ? self::doHash($params['billing']['password']) : '',
+			'email'         => (isset($params['billing']['email'])) ? $params['billing']['email'] : '',
+			'email_domain'  => (isset($params['billing']['email'])) ? substr($params['billing']['email'], strpos($params['billing']['email'], '@') + 1) : '',
+			'email_hash'    => (isset($params['billing']['email'])) ? self::doHash($params['billing']['email']) : '',
+			'user_phone'    => (isset($params['billing']['phone'])) ? preg_replace('/\D/', '', $params['billing']['phone']) : '',
+			'bill_addr'     => (isset($params['billing']['address'])) ? $params['billing']['address'] : '',
+			'bill_city'     => (isset($params['billing']['city'])) ? $params['billing']['city'] : '',
+			'bill_state'    => (isset($params['billing']['state'])) ? $params['billing']['state'] : '',
+			'bill_zip_code' => (isset($params['billing']['postcode'])) ? $params['billing']['postcode'] : '',
+			'bill_country'  => (isset($params['billing']['country'])) ? $params['billing']['country'] : '',
 
 			// Order information
-			'user_order_id'		=> (isset($params['order']['orderId'])) ? $params['order']['orderId'] : '',
-			'user_order_memo'	=> (isset($params['order']['note'])) ? $params['order']['note'] : '',
-			'amount'			=> (isset($params['order']['amount'])) ? number_format($params['order']['amount'], 2, '.', '') : 0,
-			'quantity'			=> (isset($params['order']['quantity'])) ? $params['order']['quantity'] : 1,
-			'currency'			=> (isset($params['order']['currency'])) ? $params['order']['currency'] : 'USD',
-			'department'		=> (isset($params['order']['department'])) ? $params['order']['department'] : '',
-			'payment_mode'		=> (isset($params['order']['paymentMethod'])) ? $params['order']['paymentMethod'] : '',
+			'user_order_id'   => (isset($params['order']['orderId'])) ? $params['order']['orderId'] : '',
+			'user_order_memo' => (isset($params['order']['note'])) ? $params['order']['note'] : '',
+			'amount'          => (isset($params['order']['amount'])) ? number_format($params['order']['amount'], 2, '.', '') : 0,
+			'quantity'        => (isset($params['order']['quantity'])) ? $params['order']['quantity'] : 1,
+			'currency'        => (isset($params['order']['currency'])) ? $params['order']['currency'] : 'USD',
+			'department'      => (isset($params['order']['department'])) ? $params['order']['department'] : '',
+			'payment_mode'    => (isset($params['order']['paymentMethod'])) ? $params['order']['paymentMethod'] : '',
 
 			// Credit card information
-			'bin_no'			=> (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 6) : '',
-			'card_hash'			=> (isset($params['card']['number'])) ? self::doHash($params['card']['number']) : '',
-			'avs_result'		=> (isset($params['card']['avs'])) ? self::doHash($params['card']['avs']) : '',
-			'cvv_result'		=> (isset($params['card']['cvv'])) ? self::doHash($params['card']['cvv']) : '',
+			'bin_no'     => (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 6) : '',
+			'card_hash'  => (isset($params['card']['number'])) ? self::doHash($params['card']['number']) : '',
+			'avs_result' => (isset($params['card']['avs'])) ? self::doHash($params['card']['avs']) : '',
+			'cvv_result' => (isset($params['card']['cvv'])) ? self::doHash($params['card']['cvv']) : '',
 
 			// Shipping information
-			'ship_addr'			=> (isset($params['shipping']['address'])) ? $params['shipping']['address'] : '',
-			'ship_city'			=> (isset($params['shipping']['city'])) ? $params['shipping']['city'] : '',
-			'ship_state'		=> (isset($params['shipping']['state'])) ? $params['shipping']['state'] : '',
-			'ship_zip_code'		=> (isset($params['shipping']['postcode'])) ? $params['shipping']['postcode'] : '',
-			'ship_country'		=> (isset($params['shipping']['country'])) ? $params['shipping']['country'] : '',
+			'ship_addr'     => (isset($params['shipping']['address'])) ? $params['shipping']['address'] : '',
+			'ship_city'     => (isset($params['shipping']['city'])) ? $params['shipping']['city'] : '',
+			'ship_state'    => (isset($params['shipping']['state'])) ? $params['shipping']['state'] : '',
+			'ship_zip_code' => (isset($params['shipping']['postcode'])) ? $params['shipping']['postcode'] : '',
+			'ship_country'  => (isset($params['shipping']['country'])) ? $params['shipping']['country'] : '',
 		];
 
-		$response = Http::get('https://api.fraudlabspro.com/v1/order/screen?' . http_build_query($queries));
+		$response = Http::post('https://api.fraudlabspro.com/v1/order/screen', $queries);
 
-		if (is_null($json = json_decode($response))) {
-			return FALSE;
+		if (($json = json_decode($response)) === null) {
+			return false;
 		}
 
 		return $json;
@@ -95,9 +99,10 @@ class Order
 
 	/**
 	 * Sends decision back to FraudLabs Pro.
-	 * @access public
-	 * @param array $params Parameters of order details.
-     * @return object FraudLabs Pro result in JSON object.
+	 *
+	 * @param array $params parameters of order details
+	 *
+	 * @return object fraudLabs Pro result in JSON object
 	 */
 	public static function feedback($params = [])
 	{
@@ -112,19 +117,19 @@ class Order
 		}
 
 		$queries = [
-			'key'				=> Configuration::apiKey(),
-			'format'			=> 'json',
-			'source'			=> 'FraudLabsPro PHP SDK',
-			'source_version'	=> FraudLabsPro::VERSION,
-			'id'				=> (isset($params['id'])) ? $params['id'] : '',
-			'action'			=> $status,
-			'note'				=> (isset($params['note'])) ? $params['note'] : '',
+			'key'            => Configuration::apiKey(),
+			'format'         => 'json',
+			'source'         => 'FraudLabsPro PHP SDK',
+			'source_version' => FraudLabsPro::VERSION,
+			'id'             => (isset($params['id'])) ? $params['id'] : '',
+			'action'         => $status,
+			'note'           => (isset($params['note'])) ? $params['note'] : '',
 		];
 
-		$response = Http::get('https://api.fraudlabspro.com/v1/order/feedback?' . http_build_query($queries));
+		$response = Http::post('https://api.fraudlabspro.com/v1/order/feedback', $queries);
 
-		if (is_null($json = json_decode($response))) {
-			return FALSE;
+		if (($json = json_decode($response)) === null) {
+			return false;
 		}
 
 		return $json;
@@ -132,8 +137,8 @@ class Order
 
 	/**
 	 * Gets client IP address.
-	 * @access private
-     * @return string IP address.
+	 *
+	 * @return string IP address
 	 */
 	private static function getClientIp()
 	{
@@ -161,14 +166,17 @@ class Order
 
 	/**
 	 * Hashes a string to protect its real value.
-	 * @access private
-     * @return string Hashed string.
+	 *
+	 * @param mixed $value
+	 * @param mixed $prefix
+	 *
+	 * @return string hashed string
 	 */
 	private static function doHash($value, $prefix = 'fraudlabspro_')
 	{
 		$hash = $prefix . $value;
 
-		for ($i = 0; $i < 65536; $i++) {
+		for ($i = 0; $i < 65536; ++$i) {
 			$hash = sha1($prefix . $hash);
 		}
 
