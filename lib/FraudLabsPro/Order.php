@@ -33,6 +33,14 @@ class Order
 	const OTHERS = 'OTHERS';
 
 	/**
+	 * ID types.
+	 *
+	 * @const string
+	 */
+	const FLP_ID = 'fraudlabspro_id';
+	const ORDER_ID = 'user_order_id';
+
+	/**
 	 * Validate order for possible fraud.
 	 *
 	 * @param array $params parameters of order details
@@ -127,6 +135,36 @@ class Order
 		];
 
 		$response = Http::post('https://api.fraudlabspro.com/v1/order/feedback', $queries);
+
+		if (($json = json_decode($response)) === null) {
+			return false;
+		}
+
+		return $json;
+	}
+
+	/**
+	 * Gets transaction result.
+	 *
+	 * @param string $id
+	 * @param string $type
+	 *
+	 * @return object fraudLabs Pro result in JSON object
+	 */
+	private static function getTransaction($id, $type = 'fraudlabspro_id')
+	{
+		if (empty($id)) {
+			throw new \RuntimeException('Invalid transaction ID');
+		}
+
+		$queries = [
+			'key'     => Configuration::apiKey(),
+			'format'  => 'json',
+			'id'      => $id,
+			'id_type' => ($type == self::FLP_ID) ? self::FLP_ID : self::ORDER_ID,
+		];
+
+		$response = Http::get('https://api.fraudlabspro.com/v1/order/result?' . http_build_query($queries));
 
 		if (($json = json_decode($response)) === null) {
 			return false;

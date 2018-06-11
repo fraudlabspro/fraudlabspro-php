@@ -111,6 +111,17 @@ $result = FraudLabsPro\Order::validate($orderDetails);
 
 
 
+### Get Transaction
+
+#### Parameter Properties
+
+| Parameter Name | Parameter Type | Description                                                  |
+| -------------- | -------------- | ------------------------------------------------------------ |
+| $id            | string         | FraudLabs Pro transaction ID or Order ID.                    |
+| $type          | string         | ID type. Either: **FraudLabsPrp::FLP_ID** or **FraudLabsPro::ORDER_ID** |
+
+
+
 ### Feedback
 
 #### Object Properties
