@@ -120,6 +120,16 @@ $result = FraudLabsPro\Order::validate($orderDetails);
 | $id            | string         | FraudLabs Pro transaction ID or Order ID.                    |
 | $type          | string         | ID type. Either: **FraudLabsPrp::FLP_ID** or **FraudLabsPro::ORDER_ID** |
 
+```
+<?php
+require_once 'lib/FraudLabsPro.php';
+
+// Configures FraudLabs Pro API key
+FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+
+$result = FraudLabsPro\Order::getTransaction('20170906MXFHSTRF', FraudLabsPro::FLP_ID);
+```
+
 
 
 ### Feedback
