@@ -85,8 +85,8 @@ class Order
 			// Credit card information
 			'bin_no'     => (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 6) : '',
 			'card_hash'  => (isset($params['card']['number'])) ? self::doHash($params['card']['number']) : '',
-			'avs_result' => (isset($params['card']['avs'])) ? self::doHash($params['card']['avs']) : '',
-			'cvv_result' => (isset($params['card']['cvv'])) ? self::doHash($params['card']['cvv']) : '',
+			'avs_result' => (isset($params['card']['avs'])) ? $params['card']['avs'] : '',
+			'cvv_result' => (isset($params['card']['cvv'])) ? $params['card']['cvv'] : '',
 
 			// Shipping information
 			'ship_addr'     => (isset($params['shipping']['address'])) ? $params['shipping']['address'] : '',
