@@ -160,82 +160,6 @@ FraudLabsPro\Order::feedback([
 
 
 
-## Reseller Usage
-
-### Create Account
-
-#### Object Properties
-
-| Property Name | Property Type | Description                                                  |
-| ------------- | :-----------: | ------------------------------------------------------------ |
-| username      |    string     | Username of the new account.                                 |
-| email         |    string     | Email address of the new account.                            |
-| name          |    string     | Full name of the new user.                                   |
-| address1      |    string     | Address field.                                               |
-| address2      |    string     | Additional address field.                                    |
-| city          |    string     | City name.                                                   |
-| state         |    string     | State name.                                                  |
-| postcode      |    string     | ZIP code/Postal code.                                        |
-| country       |    string     | Country code.  It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States. Please refer to																[Country Codes](https://www.fraudlabspro.com/developer/reference/country-codes) for complete list. |
-| phone         |    string     | Phone number.                                                |
-| fax           |    string     | Fax number.                                                  |
-| company       |    string     | Company name.                                                |
-| industry      |    string     | Industry ID of the business involved. Please refer to													 [reference section](#business-industry) for complete list. |
-
-
-```
-require_once 'lib/FraudLabsPro.php';
-
-// Configures FraudLabs Pro Reseller key
-FraudLabsPro\Configuration::resellerKey('YOUR_RESELLER_KEY');
-
-// User details
-$userDetails = [
-	'username'			=> 'banana88',
-	'email'				=> 'banana88@gmail.com',
-	'name'				=> 'Richard J. Quintanilla',
-	'address1'			=> '1056 Eagle Street',
-	'address2'			=> '',
-	'city'				=> 'Carbondale',
-	'state'				=> 'IL',
-	'postcode'			=> '62901',
-	'country'			=> 'US',
-	'phone'				=> '618-351-4860',
-	'fax'				=> '',
-	'company'			=> 'The Monster Inc.',
-	// Refer reference section for full list of industries
-	'industry'			=> FraudLabsPro\Account::ONLINE_GAMES,
-];
-
-// Creates user account
-$result = FraudLabsPro\Account::create($userDetails);
-```
-
-
-
-### Subscribe Plan
-
-#### Object Properties
-
-| Property Name | Property Type | Description                                                  |
-| ------------- | :-----------: | ------------------------------------------------------------ |
-| username      |    string     | Username of the account.                                     |
-| plan          |    string     | Plan code for the plan. Please refer to [reference section](#fraudlabs-pro-plan) for the complete list. |
-
-```
-require_once 'lib/FraudLabsPro.php';
-
-// Configures FraudLabs Pro Reseller key
-FraudLabsPro\Configuration::resellerKey('YOUR_RESELLER_KEY');
-
-// Subscribe to Micro plan
-FraudLabsPro\Account::subscribe([
-	'username'	=> $result->username,
-	// Please refer to reference section for full list of plans
-	'plan'		=> FraudLabsPro\Account::MICRO_PLAN,
-]);
-```
-
 
 ## SMS Verification
 
@@ -314,39 +238,6 @@ FraudLabsPro\SMSVerification::verifysms([
 | FraudLabsPro\Order::APPROVE          | Approves an order that under review status. |
 | FraudLabsPro\Order::REJECT           | Rejects an order than under review status.  |
 | FraudLabsPro\Order::REJECT_BLACKLIST | Rejects and blacklists an order.            |
-
-
-
-#### Business Industry
-
-| Business Industry                        |
-| ---------------------------------------- |
-| FraudLabsPro\Account::RETAIL_E_COMMERCE  |
-| FraudLabsPro\Account::RETAIL_BRICK_AND_MORTAR |
-| FraudLabsPro\Account::HOSPITALITY_AND_ACCOMMODATION |
-| FraudLabsPro\Account::TICKETING_AND_EVENTS |
-| FraudLabsPro\Account::CLUBS_AND_BUYING_GROUPS |
-| FraudLabsPro\Account::MEMBERSHIPS_AND_SUBSCRIPTIONS |
-| FraudLabsPro\Account::DIGITAL_CONTENT    |
-| FraudLabsPro\Account::ONLINE_GAMES       |
-| FraudLabsPro\Account::SOFTWARE           |
-| FraudLabsPro\Account::TELEPHONE_SERVICES |
-| FraudLabsPro\Account::TRAVEL             |
-| FraudLabsPro\Account::NON_PROFIT_AND_CHARITY |
-| FraudLabsPro\Account::SERVICES           |
-| FraudLabsPro\Account::HIGH_RISK_MERCHANTS |
-
-
-
-#### FraudLabs Pro Plan
-
-| FraudLabs Pro Plan           |
-| ---------------------------- |
-| FraudLabsPro\Account::MICRO  |
-| FraudLabsPro\Account::MINI   |
-| FraudLabsPro\Account::SMALL  |
-| FraudLabsPro\Account::MEDIUM |
-| FraudLabsPro\Account::LARGE  |
 
 
 
