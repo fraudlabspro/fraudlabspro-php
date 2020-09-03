@@ -3,11 +3,11 @@
     "type": "library",
     "description": "FraudLabs Pro PHP SDK to help merchants to detect fraud order and therefore reduce chargebacks.",
     "license": "MIT",
-    "version": "2.0.3",
+    "version": "2.1.0",
     "authors": [
         {
             "name": "FraudLabs Pro",
-            "homepage": "http://www.fraudlabspro.com"
+            "homepage": "https://www.fraudlabspro.com"
         }
     ],
     "require": {

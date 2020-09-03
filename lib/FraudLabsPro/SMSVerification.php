@@ -27,6 +27,7 @@ class SMSVerification
 			'key'          => Configuration::apiKey(),
 			'format'       => 'json',
 			'tel'          => (isset($params['tel'])) ? $params['tel'] : '',
+			'otp_timeout'  => (isset($params['otp_timeout'])) ? $params['otp_timeout'] : 3600,
 			'mesg'         => (isset($params['mesg'])) ? $params['mesg'] : '',
 			'country_code' => (isset($params['country_code'])) ? $params['country_code'] : '',
 		];
