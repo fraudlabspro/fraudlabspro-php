@@ -83,7 +83,7 @@ class Order
 			'payment_mode'    => (isset($params['order']['paymentMethod'])) ? $params['order']['paymentMethod'] : '',
 
 			// Credit card information
-			'bin_no'     => (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 6) : '',
+			'bin_no'     => (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 9) : '',
 			'card_hash'  => (isset($params['card']['number'])) ? self::doHash($params['card']['number']) : '',
 			'avs_result' => (isset($params['card']['avs'])) ? $params['card']['avs'] : '',
 			'cvv_result' => (isset($params['card']['cvv'])) ? $params['card']['cvv'] : '',

@@ -12,7 +12,7 @@ class FraudLabsPro
 	 *
 	 * @const string
 	 */
-	const VERSION = '3.1.2';
+	const VERSION = '3.1.3';
 
 	public function __construct()
 	{
