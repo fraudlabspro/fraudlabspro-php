@@ -5,29 +5,25 @@ namespace FraudLabsPro;
 /**
  * Configuration registry.
  *
- * @copyright  2017 FraudLabsPro.com
+ * @copyright 2020 FraudLabsPro.com
  */
 class Configuration
 {
-	public static $global;
+	const VERSION = '3.1.3';
 
-	private $_apiKey = null;
+	public $apiKey = '';
 
-	public function __construct($attribs = [])
+	public function __construct($key)
 	{
-		foreach ($attribs as $kind => $value) {
-			if ($kind == 'apiKey') {
-				$this->_apiKey = $value;
-			}
-		}
+		$this->apiKey = $key;
 	}
 
 	/**
 	 * Resets configuration.
 	 */
-	public static function reset()
+	public function reset()
 	{
-		self::$global = new self();
+		$apiKey = '';
 	}
 
 	/**
@@ -37,12 +33,12 @@ class Configuration
 	 *
 	 * @return string fraudLabs Pro API key
 	 */
-	public static function apiKey($value = null)
+	public function apiKey($value = null)
 	{
 		if (empty($value)) {
-			return self::$global->getApiKey();
+			$this->getApiKey();
 		}
-		self::$global->setApiKey($value);
+		$this->setApiKey($value);
 	}
 
 	/**
@@ -52,7 +48,7 @@ class Configuration
 	 */
 	public function getApiKey()
 	{
-		return $this->_apiKey;
+		return $this->apiKey;
 	}
 
 	/**
@@ -74,9 +70,8 @@ class Configuration
 			throw new \RuntimeException('The API key is invalid');
 		}
 
-		$this->_apiKey = $value;
+		$this->apiKey = $value;
 	}
 }
 
-Configuration::reset();
 class_alias('FraudLabsPro\Configuration', 'FraudLabsPro_Configuration');

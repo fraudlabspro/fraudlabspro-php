@@ -15,11 +15,8 @@
         "ext-curl": "*"
     },
     "autoload": {
-        "psr-0": {
-            "FraudLabsPro": "lib/"
-        },
         "psr-4": {
-            "FraudLabsPro\\": "lib/FraudLabsPro"
+            "FraudLabsPro\\": "src/FraudLabsPro"
         }
     }
 }

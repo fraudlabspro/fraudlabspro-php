@@ -58,10 +58,11 @@ Usage Example
 
 ```
 <?php
-require_once 'lib/FraudLabsPro.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
-FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
+$order = new FraudLabsPro\Order($config);
 
 // Order details
 $orderDetails = [
@@ -106,7 +107,7 @@ $orderDetails = [
 ];
 
 // Sends the order details to FraudLabs Pro
-$result = FraudLabsPro\Order::validate($orderDetails);
+$result = $order->validate($orderDetails);
 ```
 
 
@@ -118,16 +119,17 @@ $result = FraudLabsPro\Order::validate($orderDetails);
 | Parameter Name | Parameter Type | Description                                                  |
 | -------------- | -------------- | ------------------------------------------------------------ |
 | $id            | string         | FraudLabs Pro transaction ID or Order ID.                    |
-| $type          | string         | ID type. Either: **FraudLabsPrp::FLP_ID** or **FraudLabsPro::ORDER_ID** |
+| $type          | string         | ID type. Either: **FraudLabsPro\Order::FLP_ID** or **FraudLabsPro\Order::ORDER_ID** |
 
 ```
 <?php
-require_once 'lib/FraudLabsPro.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
-FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
+$order = new FraudLabsPro\Order($config);
 
-$result = FraudLabsPro\Order::getTransaction('20170906MXFHSTRF', FraudLabsPro::FLP_ID);
+$result = $order->getTransaction('20170906MXFHSTRF', FraudLabsPro\Order::FLP_ID);
 ```
 
 
@@ -144,12 +146,13 @@ $result = FraudLabsPro\Order::getTransaction('20170906MXFHSTRF', FraudLabsPro::F
 
 ```
 <?php
-require_once 'lib/FraudLabsPro.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
-FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
+$order = new FraudLabsPro\Order($config);
 
-FraudLabsPro\Order::feedback([
+$order->feedback([
 	'id'		=> '20170906MXFHSTRF',
 	// Please refer to reference section for full list of feedback statuses
 	'status'	=> FraudLabsPro\Order::APPROVE,
@@ -175,13 +178,15 @@ FraudLabsPro\Order::feedback([
 | country_code  |    string     | ISO 3166 country code for the recipient mobile phone number. If parameter is supplied, then some basic telephone number validation is done. |
 
 ```
-require_once 'lib/FraudLabsPro.php';
+<?php
+require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
-FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
+$smsVerification = new \FraudLabsPro\SmsVerification($config);
 
 // Send SMS Verification
-FraudLabsPro\SMSVerification::sendsms([
+$smsVerification->sendSms([
 	'tel'			=> '+15616288674',
 	'mesg'			=> 'Hi, your OTP is <otp>.',
 	'otp_timeout'	=> 3600,
@@ -201,13 +206,15 @@ FraudLabsPro\SMSVerification::sendsms([
 | otp           |    string     | The OTP that was sent to the recipient’s phone. |
 
 ```
-require_once 'lib/FraudLabsPro.php';
+<?php
+require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
-FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
+$smsVerification = new \FraudLabsPro\SmsVerification($config);
 
 // Get SMS Verification result
-FraudLabsPro\SMSVerification::verifysms([
+$smsVerification->verifyOtp([
 	'tran_id'		=> 'UNIQUE_TRANS_ID',
 	'otp'			=> 'OTP_RECEIVED',
 ]);

@@ -3,10 +3,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'lib/FraudLabsPro.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
-FraudLabsPro\Configuration::apiKey('YOUR_API_KEY');
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
 
 // Order details
 $orderDetails = [
@@ -49,7 +49,8 @@ $orderDetails = [
 ];
 
 // Sends the order details to FraudLabs Pro
-$result = FraudLabsPro\Order::validate($orderDetails);
+$order = new FraudLabsPro\Order($config);
+$result = $order->validate($orderDetails);
 
 if ($result) {
 	// Prints fraud result
@@ -79,7 +80,7 @@ if ($result) {
 	if ($result->fraudlabspro_status == 'REVIEW') {
 		// Orders from US are trusted, approve and feedback to FarudLabs Pro
 		if ($result->ip_country == 'US' && $result->is_proxy_ip_address == 'N') {
-			FraudLabsPro\Order::feedback([
+			$order->feedback([
 				'id'		=> $result->fraudlabspro_id,
 				'status'	=> FraudLabsPro\Order::APPROVE,
 				'note'		=> 'We trust orders from US.',

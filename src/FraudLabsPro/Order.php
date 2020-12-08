@@ -40,6 +40,13 @@ class Order
 	const FLP_ID = 'fraudlabspro_id';
 	const ORDER_ID = 'user_order_id';
 
+	private $flpApiKey = '';
+
+	public function __construct($config)
+	{
+		$this->flpApiKey = $config->apiKey;
+	}
+
 	/**
 	 * Validate order for possible fraud.
 	 *
@@ -47,25 +54,24 @@ class Order
 	 *
 	 * @return object fraudLabs Pro result in JSON object
 	 */
-	public static function validate($params = [])
+	public function validate($params = [])
 	{
 		$queries = [
-			'key'            => Configuration::apiKey(),
+			'key'            => $this->flpApiKey,
 			'format'         => 'json',
 			'source'         => 'FraudLabsPro PHP SDK',
-			'source_version' => FraudLabsPro::VERSION,
+			'source_version' => Configuration::VERSION,
 			'session_id'     => session_id(),
 			'flp_check_sum'  => (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
 
 			// Billing information
-			'ip'            => (isset($params['ip'])) ? $params['ip'] : self::getClientIp(),
+			'ip'            => (isset($params['ip'])) ? $params['ip'] : $this->getClientIp(),
 			'first_name'    => (isset($params['billing']['firstName'])) ? $params['billing']['firstName'] : '',
 			'last_name'     => (isset($params['billing']['lastName'])) ? $params['billing']['lastName'] : '',
-			'username_hash' => (isset($params['billing']['username'])) ? self::doHash($params['billing']['username']) : '',
-			'password_hash' => (isset($params['billing']['password'])) ? self::doHash($params['billing']['password']) : '',
+			'username_hash' => (isset($params['billing']['username'])) ? $this->doHash($params['billing']['username']) : '',
 			'email'         => (isset($params['billing']['email'])) ? $params['billing']['email'] : '',
 			'email_domain'  => (isset($params['billing']['email'])) ? substr($params['billing']['email'], strpos($params['billing']['email'], '@') + 1) : '',
-			'email_hash'    => (isset($params['billing']['email'])) ? self::doHash($params['billing']['email']) : '',
+			'email_hash'    => (isset($params['billing']['email'])) ? $this->doHash($params['billing']['email']) : '',
 			'user_phone'    => (isset($params['billing']['phone'])) ? preg_replace('/\D/', '', $params['billing']['phone']) : '',
 			'bill_addr'     => (isset($params['billing']['address'])) ? $params['billing']['address'] : '',
 			'bill_city'     => (isset($params['billing']['city'])) ? $params['billing']['city'] : '',
@@ -84,7 +90,7 @@ class Order
 
 			// Credit card information
 			'bin_no'     => (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 9) : '',
-			'card_hash'  => (isset($params['card']['number'])) ? self::doHash($params['card']['number']) : '',
+			'card_hash'  => (isset($params['card']['number'])) ? $this->doHash($params['card']['number']) : '',
 			'avs_result' => (isset($params['card']['avs'])) ? $params['card']['avs'] : '',
 			'cvv_result' => (isset($params['card']['cvv'])) ? $params['card']['cvv'] : '',
 
@@ -96,7 +102,8 @@ class Order
 			'ship_country'  => (isset($params['shipping']['country'])) ? $params['shipping']['country'] : '',
 		];
 
-		$response = Http::post('https://api.fraudlabspro.com/v1/order/screen', $queries);
+		$http = new Http();
+		$response = $http->post('https://api.fraudlabspro.com/v1/order/screen', $queries);
 
 		if (($json = json_decode($response)) === null) {
 			return false;
@@ -112,7 +119,7 @@ class Order
 	 *
 	 * @return object fraudLabs Pro result in JSON object
 	 */
-	public static function feedback($params = [])
+	public function feedback($params = [])
 	{
 		$validStatuses = [
 			self::APPROVE, self::REJECT, self::REJECT_BLACKLIST,
@@ -125,16 +132,17 @@ class Order
 		}
 
 		$queries = [
-			'key'            => Configuration::apiKey(),
+			'key'            => $this->flpApiKey,
 			'format'         => 'json',
 			'source'         => 'FraudLabsPro PHP SDK',
-			'source_version' => FraudLabsPro::VERSION,
+			'source_version' => Configuration::VERSION,
 			'id'             => (isset($params['id'])) ? $params['id'] : '',
 			'action'         => $status,
 			'note'           => (isset($params['note'])) ? $params['note'] : '',
 		];
 
-		$response = Http::post('https://api.fraudlabspro.com/v1/order/feedback', $queries);
+		$http = new Http();
+		$response = $http->post('https://api.fraudlabspro.com/v1/order/feedback', $queries);
 
 		if (($json = json_decode($response)) === null) {
 			return false;
@@ -151,20 +159,21 @@ class Order
 	 *
 	 * @return object fraudLabs Pro result in JSON object
 	 */
-	private static function getTransaction($id, $type = 'fraudlabspro_id')
+	public function getTransaction($id, $type = 'fraudlabspro_id')
 	{
 		if (empty($id)) {
 			throw new \RuntimeException('Invalid transaction ID');
 		}
 
 		$queries = [
-			'key'     => Configuration::apiKey(),
+			'key'     => $this->flpApiKey,
 			'format'  => 'json',
 			'id'      => $id,
 			'id_type' => ($type == self::FLP_ID) ? self::FLP_ID : self::ORDER_ID,
 		];
 
-		$response = Http::get('https://api.fraudlabspro.com/v1/order/result?' . http_build_query($queries));
+		$http = new Http();
+		$response = $http->get('https://api.fraudlabspro.com/v1/order/result?' . http_build_query($queries));
 
 		if (($json = json_decode($response)) === null) {
 			return false;
@@ -178,7 +187,7 @@ class Order
 	 *
 	 * @return string IP address
 	 */
-	private static function getClientIp()
+	private function getClientIp()
 	{
 		// If website is hosted behind CloudFlare protection.
 		if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
@@ -210,7 +219,7 @@ class Order
 	 *
 	 * @return string hashed string
 	 */
-	private static function doHash($value, $prefix = 'fraudlabspro_')
+	private function doHash($value, $prefix = 'fraudlabspro_')
 	{
 		$hash = $prefix . $value;
 

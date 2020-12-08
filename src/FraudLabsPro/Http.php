@@ -6,18 +6,22 @@ namespace FraudLabsPro;
  * FraudLabsPro HTTP Client
  * Sends Http requests using curl.
  *
- * @copyright  2018 FraudLabsPro.com
+ * @copyright 2020 FraudLabsPro.com
  */
 class Http
 {
-	public static function get($url)
+	public function __construct()
+	{
+	}
+
+	public function get($url)
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-		curl_setopt($ch, CURLOPT_USERAGENT, 'FraudLabsPro PHP SDK ' . FraudLabsPro::VERSION);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'FraudLabsPro PHP SDK ' . Configuration::VERSION);
 
 		$response = curl_exec($ch);
 
@@ -32,7 +36,7 @@ class Http
 		return $response;
 	}
 
-	public static function post($url, $fields = [])
+	public function post($url, $fields = [])
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_POST, 1);
@@ -40,7 +44,7 @@ class Http
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-		curl_setopt($ch, CURLOPT_USERAGENT, 'FraudLabsPro PHP SDK ' . FraudLabsPro::VERSION);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'FraudLabsPro PHP SDK ' . Configuration::VERSION);
 
 		$queries = (!empty($fields)) ? http_build_query($fields) : '';
 
