@@ -19,7 +19,7 @@ $orderDetails = [
 		'currency'		=> 'USD',
 		'amount'		=> '79.89',
 		'quantity'		=> 1,
-		'paymentMethod'	=> FraudLabsPro\Order::CREDIT_CARD,
+		'paymentMethod'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
 	],
 
 	'card'		=> [
@@ -49,8 +49,8 @@ $orderDetails = [
 ];
 
 // Sends the order details to FraudLabs Pro
-$order = new FraudLabsPro\Order($config);
-$result = $order->validate($orderDetails);
+$fraudlabspro = new FraudLabsPro\FraudValidation($config);
+$result = $fraudlabspro->validate($orderDetails);
 
 if ($result) {
 	// Prints fraud result
@@ -80,9 +80,9 @@ if ($result) {
 	if ($result->fraudlabspro_status == 'REVIEW') {
 		// Orders from US are trusted, approve and feedback to FarudLabs Pro
 		if ($result->ip_country == 'US' && $result->is_proxy_ip_address == 'N') {
-			$order->feedback([
+			$fraudlabspro->feedback([
 				'id'		=> $result->fraudlabspro_id,
-				'status'	=> FraudLabsPro\Order::APPROVE,
+				'status'	=> FraudLabsPro\FraudValidation::APPROVE,
 				'note'		=> 'We trust orders from US.',
 			]);
 		}

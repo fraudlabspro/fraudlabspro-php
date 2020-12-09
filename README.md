@@ -62,7 +62,7 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$order = new FraudLabsPro\Order($config);
+$fraudlabspro = new FraudLabsPro\FraudValidation($config);
 
 // Order details
 $orderDetails = [
@@ -77,7 +77,7 @@ $orderDetails = [
 		'quantity'		=> 1,
 		
 		// Please refer reference section for full list of payment methods
-		'paymentMethod'	=> FraudLabsPro\Order::CREDIT_CARD,
+		'paymentMethod'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
 	],
 
 	'card'		=> [
@@ -107,7 +107,7 @@ $orderDetails = [
 ];
 
 // Sends the order details to FraudLabs Pro
-$result = $order->validate($orderDetails);
+$result = $fraudlabspro->validate($orderDetails);
 ```
 
 
@@ -119,7 +119,7 @@ $result = $order->validate($orderDetails);
 | Parameter Name | Parameter Type | Description                                                  |
 | -------------- | -------------- | ------------------------------------------------------------ |
 | $id            | string         | FraudLabs Pro transaction ID or Order ID.                    |
-| $type          | string         | ID type. Either: **FraudLabsPro\Order::FLP_ID** or **FraudLabsPro\Order::ORDER_ID** |
+| $type          | string         | ID type. Either: **FraudLabsPro\FraudValidation::FLP_ID** or **FraudLabsPro\FraudValidation::ORDER_ID** |
 
 ```
 <?php
@@ -127,9 +127,9 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$order = new FraudLabsPro\Order($config);
+$fraudlabspro = new FraudLabsPro\FraudValidation($config);
 
-$result = $order->getTransaction('20170906MXFHSTRF', FraudLabsPro\Order::FLP_ID);
+$result = $fraudlabspro->getTransaction('20170906MXFHSTRF', FraudLabsPro\FraudValidation::FLP_ID);
 ```
 
 
@@ -150,12 +150,12 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$order = new FraudLabsPro\Order($config);
+$fraudlabspro = new FraudLabsPro\FraudValidation($config);
 
-$order->feedback([
+$fraudlabspro->feedback([
 	'id'		=> '20170906MXFHSTRF',
 	// Please refer to reference section for full list of feedback statuses
-	'status'	=> FraudLabsPro\Order::APPROVE,
+	'status'	=> FraudLabsPro\FraudValidation::APPROVE,
 	'note'		=> 'This customer made a valid purchase before.',
 ]);
 
@@ -183,10 +183,10 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$smsVerification = new \FraudLabsPro\SmsVerification($config);
+$fraudlabsproSms = new \FraudLabsPro\SmsVerification($config);
 
 // Send SMS Verification
-$smsVerification->sendSms([
+$fraudlabsproSms->sendSms([
 	'tel'			=> '+15616288674',
 	'mesg'			=> 'Hi, your OTP is <otp>.',
 	'otp_timeout'	=> 3600,
@@ -211,10 +211,10 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$smsVerification = new \FraudLabsPro\SmsVerification($config);
+$fraudlabsproSms = new \FraudLabsPro\SmsVerification($config);
 
 // Get SMS Verification result
-$smsVerification->verifyOtp([
+$fraudlabsproSms->verifyOtp([
 	'tran_id'		=> 'UNIQUE_TRANS_ID',
 	'otp'			=> 'OTP_RECEIVED',
 ]);
@@ -228,15 +228,15 @@ $smsVerification->verifyOtp([
 
 | Payment Method                       |
 | ------------------------------------ |
-| FraudLabsPro\Order::CREDIT_CARD      |
-| FraudLabsPro\Order::PAYPAL           |
-| FraudLabsPro\Order::GOOGLE_CHECKOUT  |
-| FraudLabsPro\Order::CASH_ON_DELIVERY |
-| FraudLabsPro\Order::MONEY_ORDER      |
-| FraudLabsPro\Order::WIRE_TRANSFER    |
-| FraudLabsPro\Order::BANK_DEPOSIT     |
-| FraudLabsPro\Order::BITCOIN          |
-| FraudLabsPro\Order::OTHERS           |
+| FraudLabsPro\FraudValidation::CREDIT_CARD      |
+| FraudLabsPro\FraudValidation::PAYPAL           |
+| FraudLabsPro\FraudValidation::GOOGLE_CHECKOUT  |
+| FraudLabsPro\FraudValidation::CASH_ON_DELIVERY |
+| FraudLabsPro\FraudValidation::MONEY_ORDER      |
+| FraudLabsPro\FraudValidation::WIRE_TRANSFER    |
+| FraudLabsPro\FraudValidation::BANK_DEPOSIT     |
+| FraudLabsPro\FraudValidation::BITCOIN          |
+| FraudLabsPro\FraudValidation::OTHERS           |
 
 
 
@@ -244,9 +244,9 @@ $smsVerification->verifyOtp([
 
 | Feedback Status                      | Description                                 |
 | ------------------------------------ | ------------------------------------------- |
-| FraudLabsPro\Order::APPROVE          | Approves an order that under review status. |
-| FraudLabsPro\Order::REJECT           | Rejects an order than under review status.  |
-| FraudLabsPro\Order::REJECT_BLACKLIST | Rejects and blacklists an order.            |
+| FraudLabsPro\FraudValidation::APPROVE          | Approves an order that under review status. |
+| FraudLabsPro\FraudValidation::REJECT           | Rejects an order than under review status.  |
+| FraudLabsPro\FraudValidation::REJECT_BLACKLIST | Rejects and blacklists an order.            |
 
 
 

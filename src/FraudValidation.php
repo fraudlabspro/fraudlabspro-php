@@ -3,10 +3,10 @@
 namespace FraudLabsPro;
 
 /**
- * FraudLabsPro Order module.
+ * FraudLabsPro FraudValidation module.
  * Validates order for possible fraud and feedback user decision.
  */
-class Order
+class FraudValidation
 {
 	/**
 	 * Order statuses.
@@ -231,4 +231,4 @@ class Order
 	}
 }
 
-class_alias('FraudLabsPro\Order', 'FraudLabsPro_Order');
+class_alias('FraudLabsPro\FraudValidation', 'FraudLabsPro_FraudValidation');
