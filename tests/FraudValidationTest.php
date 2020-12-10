@@ -20,14 +20,12 @@ class FraudValidationTest extends TestCase
 	}
 
 	public function testApiKeyExist() {
-		$testApiKey = $GLOBALS['testApiKey'];
-
-		if ($testApiKey == 'YOUR_API_KEY') {
-			trigger_error("Kindly update the FraudLabs Pro API Key for testing in tests/bootstrap.php", E_USER_WARNING);
+		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
+			trigger_error("Enter a valid FraudLabs Pro API Key in tests/bootstrap.php for real testing.", E_USER_NOTICE);
 		} else {
 			$this->assertNotEquals(
 				'YOUR_API_KEY',
-				$testApiKey,
+				$GLOBALS['testApiKey'],
 			);
 		}
 	}
@@ -39,10 +37,17 @@ class FraudValidationTest extends TestCase
 			'ip'		=> '8.8.8.8',
 		]);
 
-		$this->assertEquals(
-			'US',
-			$result->ip_country,
-		);
+		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
+			$this->assertEquals(
+				'NA',
+				$result->fraudlabspro_id,
+			);
+		} else {
+			$this->assertEquals(
+				'US',
+				$result->ip_country,
+			);
+		}
 	}
 
 	public function testGetTransaction() {
@@ -65,9 +70,16 @@ class FraudValidationTest extends TestCase
 			'note'		=> 'This customer made a valid purchase before.',
 		]);
 
-		$this->assertEquals(
-			'INVALID TRANSACTION ID',
-			$result->fraudlabspro_message,
-		);
+		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
+			$this->assertEquals(
+				'INVALID API KEY',
+				$result->fraudlabspro_message,
+			);
+		} else {
+			$this->assertEquals(
+				'INVALID TRANSACTION ID',
+				$result->fraudlabspro_message,
+			);
+		}
 	}
 }

@@ -187,7 +187,7 @@ $fraudlabsproSms = new \FraudLabsPro\SmsVerification($config);
 
 // Send SMS Verification
 $fraudlabsproSms->sendSms([
-	'tel'			=> '+15616288674',
+	'tel'			=> '+123456789',
 	'mesg'			=> 'Hi, your OTP is <otp>.',
 	'otp_timeout'	=> 3600,
 	'country_code'	=> 'US',
