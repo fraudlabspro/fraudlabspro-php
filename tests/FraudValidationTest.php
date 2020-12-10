@@ -21,7 +21,17 @@ class FraudValidationTest extends TestCase
 
 	public function testApiKeyExist() {
 		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
-			trigger_error("Enter a valid FraudLabs Pro API Key in tests/bootstrap.php for real testing.", E_USER_NOTICE);
+			echo "/*
+* You could enter a FraudLabs Pro API Key in tests/bootstrap.php
+* for real web service calling test.
+* 
+* You could sign up for a free API key at https://www.fraudlabspro.com/pricing
+* if you do not have one.
+*/";
+			$this->assertEquals(
+				'YOUR_API_KEY',
+				$GLOBALS['testApiKey'],
+			);
 		} else {
 			$this->assertNotEquals(
 				'YOUR_API_KEY',
