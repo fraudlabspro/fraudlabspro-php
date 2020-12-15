@@ -134,11 +134,11 @@ class FraudValidation
 		$queries = [
 			'key'            => $this->flpApiKey,
 			'format'         => 'json',
-			'source'         => 'FraudLabsPro PHP SDK',
 			'source_version' => Configuration::VERSION,
 			'id'             => (isset($params['id'])) ? $params['id'] : '',
 			'action'         => $status,
 			'note'           => (isset($params['note'])) ? $params['note'] : '',
+			'source'         => (isset($params['source'])) ? $params['source'] : 'FraudLabsPro PHP SDK',
 		];
 
 		$http = new Http();

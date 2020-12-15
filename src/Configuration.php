@@ -9,7 +9,7 @@ namespace FraudLabsPro;
  */
 class Configuration
 {
-	const VERSION = '3.0.0';
+	const VERSION = '3.0.1';
 
 	public $apiKey = '';
 
