@@ -62,7 +62,7 @@ class FraudValidation
 			'source'         => 'FraudLabsPro PHP SDK',
 			'source_version' => Configuration::VERSION,
 			'session_id'     => session_id(),
-			'flp_check_sum'  => (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
+			'flp_checksum'  => (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
 
 			// Billing information
 			'ip'            => (isset($params['ip'])) ? $params['ip'] : $this->getClientIp(),
