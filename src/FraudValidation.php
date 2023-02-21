@@ -59,7 +59,7 @@ class FraudValidation
 		$queries = [
 			'key'            => $this->flpApiKey,
 			'format'         => 'json',
-			'source'         => 'FraudLabsPro PHP SDK',
+			'source'         => 'sdk-php',
 			'source_version' => Configuration::VERSION,
 			'session_id'     => session_id(),
 			'flp_checksum'  => (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
@@ -138,7 +138,7 @@ class FraudValidation
 			'id'             => (isset($params['id'])) ? $params['id'] : '',
 			'action'         => $status,
 			'note'           => (isset($params['note'])) ? $params['note'] : '',
-			'source'         => (isset($params['source'])) ? $params['source'] : 'FraudLabsPro PHP SDK',
+			'source'         => (isset($params['source'])) ? $params['source'] : 'sdk-php',
 		];
 
 		$http = new Http();
