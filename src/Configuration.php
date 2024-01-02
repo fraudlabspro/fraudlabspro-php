@@ -5,7 +5,7 @@ namespace FraudLabsPro;
 /**
  * Configuration registry.
  *
- * @copyright 2020 FraudLabsPro.com
+ * @copyright 2024 FraudLabsPro.com
  */
 class Configuration
 {

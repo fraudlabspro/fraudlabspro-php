@@ -6,7 +6,7 @@ namespace FraudLabsPro;
  * FraudLabsPro HTTP Client
  * Sends Http requests using curl.
  *
- * @copyright 2020 FraudLabsPro.com
+ * @copyright 2024 FraudLabsPro.com
  */
 class Http
 {
