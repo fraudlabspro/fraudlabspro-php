@@ -103,7 +103,7 @@ class FraudValidation
 		];
 
 		$http = new Http();
-		$response = $http->post('https://api.fraudlabspro.com/v1/order/screen', $queries);
+		$response = $http->post('https://api.fraudlabspro.com/v2/order/screen', $queries);
 
 		if (($json = json_decode($response)) === null) {
 			return false;
@@ -142,7 +142,7 @@ class FraudValidation
 		];
 
 		$http = new Http();
-		$response = $http->post('https://api.fraudlabspro.com/v1/order/feedback', $queries);
+		$response = $http->post('https://api.fraudlabspro.com/v2/order/feedback', $queries);
 
 		if (($json = json_decode($response)) === null) {
 			return false;
@@ -173,7 +173,7 @@ class FraudValidation
 		];
 
 		$http = new Http();
-		$response = $http->get('https://api.fraudlabspro.com/v1/order/result?' . http_build_query($queries));
+		$response = $http->get('https://api.fraudlabspro.com/v2/order/result?' . http_build_query($queries));
 
 		if (($json = json_decode($response)) === null) {
 			return false;

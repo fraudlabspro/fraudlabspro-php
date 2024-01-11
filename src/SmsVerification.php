@@ -42,7 +42,7 @@ class SmsVerification
 		];
 
 		$http = new Http();
-		$response = $http->post('https://api.fraudlabspro.com/v1/verification/send', $queries);
+		$response = $http->post('https://api.fraudlabspro.com/v2/verification/send', $queries);
 
 		if (($json = json_decode($response)) === null) {
 			return false;
@@ -68,7 +68,7 @@ class SmsVerification
 		];
 
 		$http = new Http();
-		$response = $http->post('https://api.fraudlabspro.com/v1/verification/result', $queries);
+		$response = $http->get('https://api.fraudlabspro.com/v2/verification/result?' . http_build_query($queries));
 
 		if (($json = json_decode($response)) === null) {
 			return false;

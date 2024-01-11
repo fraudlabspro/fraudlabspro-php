@@ -25,7 +25,7 @@ class Http
 
 		$response = curl_exec($ch);
 
-		if (empty($response) || curl_error($ch) || curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+		if (empty($response) || curl_error($ch)) {
 			curl_close($ch);
 
 			return false;
@@ -54,7 +54,7 @@ class Http
 
 		$response = curl_exec($ch);
 
-		if (empty($response) || curl_error($ch) || curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+		if (empty($response) || curl_error($ch)) {
 			curl_close($ch);
 
 			return false;

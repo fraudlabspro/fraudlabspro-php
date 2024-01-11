@@ -18,13 +18,13 @@ class SmsVerificationTest extends TestCase
 
 		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
 			$this->assertEquals(
-				'API key not found.',
-				$result->error,
+				'INVALID API KEY',
+				$result->error->error_message,
 			);
 		} else {
 			$this->assertEquals(
-				'Invalid phone number.',
-				$result->error,
+				'INVALID PHONE NUMBER',
+				$result->error->error_message,
 			);
 		}
 	}
@@ -39,13 +39,13 @@ class SmsVerificationTest extends TestCase
 
 		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
 			$this->assertEquals(
-				'API key not found.',
-				$result->error,
+				'INVALID API KEY',
+				$result->error->error_message,
 			);
 		} else {
 			$this->assertEquals(
-				'Invalid OTP.',
-				$result->error,
+				'INVALID OTP',
+				$result->error->error_message,
 			);
 		}
 	}

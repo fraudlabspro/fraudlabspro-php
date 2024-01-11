@@ -15,7 +15,7 @@ class FraudValidationTest extends TestCase
 
 		$this->assertEquals(
 			'INVALID API KEY',
-			$result->fraudlabspro_message,
+			$result->error->error_message,
 		);
 	}
 
@@ -55,7 +55,7 @@ class FraudValidationTest extends TestCase
 		} else {
 			$this->assertEquals(
 				'US',
-				$result->ip_country,
+				$result->ip_geolocation->country_code,
 			);
 		}
 	}
@@ -66,7 +66,7 @@ class FraudValidationTest extends TestCase
 		$result = $fraudlabspro->getTransaction('20170906MXFHSTRF', FraudLabsPro\FraudValidation::FLP_ID);
 
 		$this->assertEquals(
-			'NA',
+			null,
 			$result->fraudlabspro_id,
 		);
 	}
@@ -83,12 +83,12 @@ class FraudValidationTest extends TestCase
 		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
 			$this->assertEquals(
 				'INVALID API KEY',
-				$result->fraudlabspro_message,
+				$result->error->error_message,
 			);
 		} else {
 			$this->assertEquals(
 				'INVALID TRANSACTION ID',
-				$result->fraudlabspro_message,
+				$result->error->error_message,
 			);
 		}
 	}

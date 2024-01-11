@@ -52,17 +52,19 @@ $orderDetails = [
 $fraudlabspro = new FraudLabsPro\FraudValidation($config);
 $result = $fraudlabspro->validate($orderDetails);
 
-if ($result) {
+if (isset($result->error->error_code)) {
+	echo 'Error: ' . $result->error->error_message;
+} else {
 	// Prints fraud result
 	echo '<h2>FraudLabs Pro Result</h2>';
 
 	echo '<pre>';
-
-	foreach ($result as $key => $value) {
-		echo '<strong>' . str_pad($key, 40) . '</strong>';
-		echo $value . "\n";
-	}
-
+	echo '<strong>FraudLabs Pro ID: </strong>';
+	echo $result->fraudlabspro_id . "\n";
+	echo '<strong>FraudLabs Pro Score: </strong>';
+	echo $result->fraudlabspro_score . "\n";
+	echo '<strong>FraudLabs Pro Status: </strong>';
+	echo $result->fraudlabspro_status . "\n";
 	echo '</pre>';
 
 	if ($result->fraudlabspro_status != 'APPROVE') {
@@ -73,13 +75,13 @@ if ($result) {
 		// High risk, better cancel the order
 	}
 
-	if ($result->is_proxy_ip_address == 'Y') {
+	if ($result->ip_geolocation->is_proxy) {
 		// User cannot made purchase through proxy server, do something
 	}
 
 	if ($result->fraudlabspro_status == 'REVIEW') {
 		// Orders from US are trusted, approve and feedback to FarudLabs Pro
-		if ($result->ip_country == 'US' && $result->is_proxy_ip_address == 'N') {
+		if ($result->ip_geolocation->country_code == 'US' && $result->ip_geolocation->is_proxy === false) {
 			$fraudlabspro->feedback([
 				'id'		=> $result->fraudlabspro_id,
 				'status'	=> FraudLabsPro\FraudValidation::APPROVE,
