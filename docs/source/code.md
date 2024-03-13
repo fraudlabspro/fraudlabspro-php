@@ -94,44 +94,40 @@ Approve, reject or ignore a transaction.
 | note  | integer | (optional) Notes for the feedback request. |
 ```
 
-```{py:function} validate(ip_address)
+```{py:function} validate(params)
 Retrieve geolocation information for an IP address.
 
-:param str ip_address: (Required) The IP address (IPv4 or IPv6).
+:param array params: (Required) The details of a transaction.
 
 | Parameter       | Type    | Description |
 |-----------------|---------|-----------------|
 | ip              | string  | (required) IP address of online transaction. It supports both IPv4 and IPv6 address format. |
-| last_name       | string  | (optional) User's last name. |
-| first_name      | string  | (optional) User's first name. |
-| bill_addr       | string  | (optional) Street address of billing address. |
-| bill_city       | string  | (optional) City of billing address. |
-| bill_state      | string  | (optional) State of billing address. It supports state codes, e.g. NY (New York), for state or province of United States or Canada.|
-| bill_country    | string  | (optional) Country of billing address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States.|
-| bill_zip_code   | string  | (optional) Postal or ZIP code of billing address. |
-| ship_last_name  | string  | (optional) Receiver's last name. |
-| ship_first_name | string  | (optional) Receiver's first name. |
-| ship_addr       | string  | (optional) Street address of shipping address. |
-| ship_city       | string  | (optional) City of shipping address. |
-| ship_state      | string  | (optional) State of shipping address. It supports state codes, e.g. NY - New York, for state or province of United States or Canada. |
-| ship_country    | string  | (optional) Country of shipping address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States. |
-| ship_zip_code   | string  | (optional) Postal or ZIP code of shipping address. |
-| user_phone      | string  | (optional) User's phone number. |
-| email           | string  | (optional) User's email address. |
-| email_hash      | string  | (optional) SHA1-64k hash of user's email address. If you have provided the value in the email, then you do not need to supply this email_hash parameter. |
-| email_domain    | string  | (optional) Domain name of email address. For example, the domain of email address support@fraudlabspro.com is fraudlabspro.com. If you didn't supply this value, the system will automatically extract the domain name from the email field. If you have provided the value in the email, then you do not need to supply this email_domain parameter. |
-| username        | string  | (optional) The username used in the account sign up, if applicable |
-| bin_no          | string  | (optional) First 6 or 8 digits of credit card number to identify issuing bank. |
-| card_hash       | string  | (optional) SHA1-64k hash of credit number. |
-| avs_result      | string  | (optional) The single character AVS result returned by the credit card processor. |
-| cvv_result      | string  | (optional) The single character CVV2 result returned by the credit card processor.<br/> This is not for the input of the actual CVV code from the back of the credit card. |
-| user_order_id   | string  | (optional) Merchant identifier to uniquely identify a transaction. It supports<br/> maximum of 15 characters user order id input. |
-| amount          | decimal | (optional) Amount of the transaction. |
-| quantity        | integer | (optional) Total quantity of the transaction. |
-| currency        | string  | (optional) Currency code used in the transaction. It requires the input of<br/> ISO-4217 (3 characters) currency code, e.g. USD for US Dollar. |
-| department      | string  | (optional) Merchant identifier to uniquely identify a product or service department. |
-| payment_gateway | string  | (optional) The name of payment gateway used to capture the payment. |
-| payment_mode    | string  | (optional) Payment mode of transaction. Valid values: creditcard \| affirm \| paypal \| googlecheckout \| bitcoin \| cod \| moneyorder \| wired \|<br/> bankdeposit \| elviauthorized \| paymitco \| cybersource \| sezzle \| viabill \| amazonpay \| pmnts_gateway \| giftcard \| ewayrapid \| others. |
+| billing->lastName       | string  | (optional) User's last name. |
+| billing->firstName | string  | (optional) User's first name. |
+| billing->username    | string | (optional) User's username.                                             |
+| billing->password    | string | (optional) User's password.                                             |
+| billing->email       | string | (optional) User's email address.                                        |
+| billing->phone       | string | (optional) User's phone number.                                         |
+| billing->address       | string  | (optional) Street address of billing address. |
+| billing->city       | string  | (optional) City of billing address. |
+| billing->state      | string  | (optional) State of billing address. It supports state codes, e.g. NY (New York), for state or province of United States or Canada.|
+| billing->country    | string  | (optional) Country of billing address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States.|
+| billing->postcode   | string  | (optional) Postal or ZIP code of billing address. |
+| shipping->address       | string  | (optional) Street address of shipping address. |
+| shipping->city       | string  | (optional) City of shipping address. |
+| shipping->state      | string  | (optional) State of shipping address. It supports state codes, e.g. NY - New York, for state or province of United States or Canada. |
+| shipping->country    | string  | (optional) Country of shipping address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States. |
+| shipping->postcode   | string  | (optional) Postal or ZIP code of shipping address. |
+| card->number         | string        | Billing credit card number or BIN number.                    |
+| card->avs      | string  | (optional) The single character AVS result returned by the credit card processor. |
+| card->cvv      | string  | (optional) The single character CVV2 result returned by the credit card processor.<br/> This is not for the input of the actual CVV code from the back of the credit card. |
+| order->orderId   | string  | (optional) Merchant identifier to uniquely identify a transaction. It supports<br/> maximum of 15 characters user order id input. |
+| order->note          | string        | (optional) Merchant description of an order transaction. It supports maximum of 200 characters. |
+| order->amount          | decimal | (optional) Amount of the transaction. |
+| order->quantity        | integer | (optional) Total quantity of the transaction. |
+| order->currency        | string  | (optional) Currency code used in the transaction. It requires the input of<br/> ISO-4217 (3 characters) currency code, e.g. USD for US Dollar. |
+| order->department      | string  | (optional) Merchant identifier to uniquely identify a product or service department. |
+| order->paymentMethod    | string  | (optional) Payment mode of transaction. Valid values: creditcard \| affirm \| paypal \| googlecheckout \| bitcoin \| cod \| moneyorder \| wired \|<br/> bankdeposit \| elviauthorized \| paymitco \| cybersource \| sezzle \| viabill \| amazonpay \| pmnts_gateway \| giftcard \| ewayrapid \| others. |
 
 :return: Returns the geolocation information in array. Refer below table for the fields avaliable in the array
 :rtype: array

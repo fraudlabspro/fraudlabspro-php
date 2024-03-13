@@ -76,7 +76,7 @@ $result = $fraudlabspro->validate($orderDetails);
 
 You can get the details of a transaction as below:
 
-```
+```php
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
@@ -91,7 +91,7 @@ $result = $fraudlabspro->getTransaction('20170906MXFHSTRF', FraudLabsPro\FraudVa
 
 You can approve, reject or ignore a transaction as below:
 
-```
+```php
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
@@ -112,7 +112,7 @@ $fraudlabspro->feedback([
 
 You can send SMS verification for authentication purpose as below:
 
-```
+```php
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
@@ -133,7 +133,7 @@ $fraudlabsproSms->sendSms([
 
 You can verify the OTP sent by Fraudlabs Pro SMS verification API as below:
 
-```
+```php
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
