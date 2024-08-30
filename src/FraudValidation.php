@@ -24,12 +24,11 @@ class FraudValidation
 	 */
 	const CREDIT_CARD = 'CREDITCARD';
 	const PAYPAL = 'PAYPAL';
-	const GOOGLE_CHECKOUT = 'GOOGLECHECKOUT';
 	const CASH_ON_DELIVERY = 'COD';
-	const MONEY_ORDER = 'MONEYORDER';
-	const WIRE_TRANSFER = 'WIRED';
 	const BANK_DEPOSIT = 'BANKDEPOSIT';
-	const BITCOIN = 'BITCOIN';
+	const GIFT_CARD = 'GIFTCARD';
+	const CRYPTO = 'CRYPTO';
+	const WIRED = 'WIRED';
 	const OTHERS = 'OTHERS';
 
 	/**
@@ -87,6 +86,7 @@ class FraudValidation
 			'currency'        => (isset($params['order']['currency'])) ? $params['order']['currency'] : 'USD',
 			'department'      => (isset($params['order']['department'])) ? $params['order']['department'] : '',
 			'payment_mode'    => (isset($params['order']['paymentMethod'])) ? $params['order']['paymentMethod'] : '',
+			'payment_gateway' => (isset($params['order']['paymentGateway'])) ? $params['order']['paymentGateway'] : '',
 
 			// Credit card information
 			'bin_no'     => (isset($params['card']['number'])) ? substr($params['card']['number'], 0, 9) : '',
@@ -95,11 +95,13 @@ class FraudValidation
 			'cvv_result' => (isset($params['card']['cvv'])) ? $params['card']['cvv'] : '',
 
 			// Shipping information
-			'ship_addr'     => (isset($params['shipping']['address'])) ? $params['shipping']['address'] : '',
-			'ship_city'     => (isset($params['shipping']['city'])) ? $params['shipping']['city'] : '',
-			'ship_state'    => (isset($params['shipping']['state'])) ? $params['shipping']['state'] : '',
-			'ship_zip_code' => (isset($params['shipping']['postcode'])) ? $params['shipping']['postcode'] : '',
-			'ship_country'  => (isset($params['shipping']['country'])) ? $params['shipping']['country'] : '',
+			'ship_first_name' => (isset($params['shipping']['firstName'])) ? $params['shipping']['firstName'] : '',
+			'ship_last_name'  => (isset($params['shipping']['lastName'])) ? $params['shipping']['lastName'] : '',
+			'ship_addr'       => (isset($params['shipping']['address'])) ? $params['shipping']['address'] : '',
+			'ship_city'       => (isset($params['shipping']['city'])) ? $params['shipping']['city'] : '',
+			'ship_state'      => (isset($params['shipping']['state'])) ? $params['shipping']['state'] : '',
+			'ship_zip_code'   => (isset($params['shipping']['postcode'])) ? $params['shipping']['postcode'] : '',
+			'ship_country'    => (isset($params['shipping']['country'])) ? $params['shipping']['country'] : '',
 		];
 
 		$http = new Http();

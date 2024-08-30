@@ -14,12 +14,13 @@ $orderDetails = [
 	'ip'		=> '146.112.62.105',
 
 	'order'		=> [
-		'orderId'		=> '67398',
-		'note'			=> 'Online shop',
-		'currency'		=> 'USD',
-		'amount'		=> '79.89',
-		'quantity'		=> 1,
-		'paymentMethod'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
+		'orderId'			=> '67398',
+		'note'				=> 'Online shop',
+		'currency'			=> 'USD',
+		'amount'			=> '79.89',
+		'quantity'			=> 1,
+		'paymentGateway'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
+		'paymentMethod'		=> FraudLabsPro\FraudValidation::CREDIT_CARD,
 	],
 
 	'card'		=> [
@@ -40,6 +41,8 @@ $orderDetails = [
 	],
 
 	'shipping'	=> [
+		'firstName'	=> 'Hector',
+		'lastName'	=> 'Henderson',
 		'address'	=> '4469 Chestnut Street',
 		'city'		=> 'Tampa',
 		'state'		=> 'FL',

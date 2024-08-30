@@ -39,6 +39,7 @@ $orderDetails = [
 		'quantity'		=> 1,
 		
 		// Please refer reference section for full list of payment methods
+		'paymentGateway'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
 		'paymentMethod'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
 	],
 
@@ -60,6 +61,8 @@ $orderDetails = [
 	],
 
 	'shipping'	=> [
+		'firstName'	=> 'Hector',
+		'lastName'	=> 'Henderson',
 		'address'	=> '4469 Chestnut Street',
 		'city'		=> 'Tampa',
 		'state'		=> 'FL',

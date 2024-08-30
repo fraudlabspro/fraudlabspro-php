@@ -113,6 +113,8 @@ Retrieve geolocation information for an IP address.
 | billing->state      | string  | (optional) State of billing address. It supports state codes, e.g. NY (New York), for state or province of United States or Canada.|
 | billing->country    | string  | (optional) Country of billing address. It requires the input of ISO-3166 alpha-2 country code, e.g. US for United States.|
 | billing->postcode   | string  | (optional) Postal or ZIP code of billing address. |
+| shipping->lastName       | string  | (optional) Receiver's last name. |
+| shipping->firstName | string  | (optional) Receiver's first name. |
 | shipping->address       | string  | (optional) Street address of shipping address. |
 | shipping->city       | string  | (optional) City of shipping address. |
 | shipping->state      | string  | (optional) State of shipping address. It supports state codes, e.g. NY - New York, for state or province of United States or Canada. |
@@ -127,7 +129,8 @@ Retrieve geolocation information for an IP address.
 | order->quantity        | integer | (optional) Total quantity of the transaction. |
 | order->currency        | string  | (optional) Currency code used in the transaction. It requires the input of<br/> ISO-4217 (3 characters) currency code, e.g. USD for US Dollar. |
 | order->department      | string  | (optional) Merchant identifier to uniquely identify a product or service department. |
-| order->paymentMethod    | string  | (optional) Payment mode of transaction. Valid values: creditcard \| affirm \| paypal \| googlecheckout \| bitcoin \| cod \| moneyorder \| wired \|<br/> bankdeposit \| elviauthorized \| paymitco \| cybersource \| sezzle \| viabill \| amazonpay \| pmnts_gateway \| giftcard \| ewayrapid \| others. |
+| order->paymentGateway   | string  | (optional) The name of payment gateway used to capture the payment. |
+| order->paymentMethod    | string  | (optional) Payment mode of transaction. Valid values: creditcard \| paypal \| cod \| bankdeposit \| giftcard \| crypto \| wired \| others |
 
 :return: Returns the geolocation information in array. Refer below table for the fields avaliable in the array
 :rtype: array
