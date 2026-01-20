@@ -9,7 +9,7 @@ namespace FraudLabsPro;
  */
 class Configuration
 {
-	const VERSION = '4.0.1';
+	const VERSION = '4.0.2';
 	
 	const SOURCE = 'sdk-php';
 
