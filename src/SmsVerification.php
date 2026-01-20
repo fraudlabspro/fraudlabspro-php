@@ -25,6 +25,13 @@ class SmsVerification
 	 */
 	public function sendSms($params = [])
 	{
+		if ((isset($params['country_code'])) && (strlen($params['country_code']) != 2)) {
+			throw new \RuntimeException('Invalid ISO3166 Country Code.');
+		}
+		if ((isset($params['otp_timeout'])) && (! is_int($params['otp_timeout']))) {
+			throw new \RuntimeException('otp_timeout value must be integer.');
+		}
+		
 		if (isset($params['tel'])) {
 			if (strpos($params['tel'], '+') !== 0) {
 				$params['tel'] = '+' . $params['tel'];
@@ -32,13 +39,15 @@ class SmsVerification
 		}
 
 		$queries = [
-			'key'          => $this->flpApiKey,
-			'format'       => 'json',
-			'tel'          => (isset($params['tel'])) ? $params['tel'] : '',
-			'otp_timeout'  => (isset($params['otp_timeout'])) ? $params['otp_timeout'] : 3600,
-			'mesg'         => (isset($params['mesg'])) ? $params['mesg'] : '',
-			'country_code' => (isset($params['country_code'])) ? $params['country_code'] : '',
-			'source'       => (isset($params['source'])) ? $params['source'] : 'sdk-php',
+			'key'            => $this->flpApiKey,
+			'format'         => 'json',
+			'source'         => Configuration::SOURCE,
+			'source_version' => Configuration::VERSION,
+			'tel'            => (isset($params['tel'])) ? $params['tel'] : '',
+			'otp_timeout'    => (isset($params['otp_timeout'])) ? $params['otp_timeout'] : 3600,
+			'mesg'           => (isset($params['mesg'])) ? $params['mesg'] : '',
+			'country_code'   => (isset($params['country_code'])) ? $params['country_code'] : '',
+			'source'         => (isset($params['source'])) ? $params['source'] : 'sdk-php',
 		];
 
 		$http = new Http();
@@ -61,10 +70,12 @@ class SmsVerification
 	public function verifyOtp($params = [])
 	{
 		$queries = [
-			'key'     => $this->flpApiKey,
-			'format'  => 'json',
-			'tran_id' => (isset($params['tran_id'])) ? $params['tran_id'] : '',
-			'otp'     => (isset($params['otp'])) ? $params['otp'] : '',
+			'key'            => $this->flpApiKey,
+			'format'         => 'json',
+			'source'         => Configuration::SOURCE,
+			'source_version' => Configuration::VERSION,
+			'tran_id'        => (isset($params['tran_id'])) ? $params['tran_id'] : '',
+			'otp'            => (isset($params['otp'])) ? $params['otp'] : '',
 		];
 
 		$http = new Http();

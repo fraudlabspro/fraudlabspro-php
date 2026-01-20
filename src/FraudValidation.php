@@ -58,7 +58,7 @@ class FraudValidation
 		$queries = [
 			'key'            => $this->flpApiKey,
 			'format'         => 'json',
-			'source'         => 'sdk-php',
+			'source'         => Configuration::SOURCE,
 			'source_version' => Configuration::VERSION,
 			'session_id'     => session_id(),
 			'flp_checksum'  => (isset($_COOKIE['flp_checksum'])) ? $_COOKIE['flp_checksum'] : '',
@@ -136,6 +136,7 @@ class FraudValidation
 		$queries = [
 			'key'            => $this->flpApiKey,
 			'format'         => 'json',
+			'source'         => Configuration::SOURCE,
 			'source_version' => Configuration::VERSION,
 			'id'             => (isset($params['id'])) ? $params['id'] : '',
 			'action'         => $status,
@@ -168,10 +169,12 @@ class FraudValidation
 		}
 
 		$queries = [
-			'key'     => $this->flpApiKey,
-			'format'  => 'json',
-			'id'      => $id,
-			'id_type' => ($type == self::FLP_ID) ? self::FLP_ID : self::ORDER_ID,
+			'key'            => $this->flpApiKey,
+			'source'         => Configuration::SOURCE,
+			'source_version' => Configuration::VERSION,
+			'format'         => 'json',
+			'id'             => $id,
+			'id_type'        => ($type == self::FLP_ID) ? self::FLP_ID : self::ORDER_ID,
 		];
 
 		$http = new Http();

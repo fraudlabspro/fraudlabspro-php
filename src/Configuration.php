@@ -10,6 +10,8 @@ namespace FraudLabsPro;
 class Configuration
 {
 	const VERSION = '4.0.1';
+	
+	const SOURCE = 'sdk-php';
 
 	public $apiKey = '';
 
