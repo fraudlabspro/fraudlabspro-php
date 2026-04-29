@@ -150,3 +150,24 @@ $fraudlabsproSms->verifyOtp([
 	'otp'			=> 'OTP_RECEIVED',
 ]);
 ```
+
+### Feedback Payment
+
+You can report payment gateway feedback as below:
+
+```php
+<?php
+require_once __DIR__.'/vendor/autoload.php';
+
+// Configures FraudLabs Pro API key
+$config = new FraudLabsPro\Configuration('YOUR_API_KEY');
+$fraudlabsproPayment = new \FraudLabsPro\Payment($config);
+
+// Feedbank Payment
+$fraudlabsproPayment->feedback([
+	'email'				=> 'hh5566@gmail.com',
+	'status'			=> 'declined',
+	'message'			=> 'Call Issuer. Pick Up Card. (2047)',
+	'fraudlabspro_id'	=> '20260131-O263CR',
+]);
+```

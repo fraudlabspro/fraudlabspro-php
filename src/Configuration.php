@@ -5,11 +5,11 @@ namespace FraudLabsPro;
 /**
  * Configuration registry.
  *
- * @copyright 2024 FraudLabsPro.com
+ * @copyright 2013 - 2026 FraudLabsPro.com
  */
 class Configuration
 {
-	const VERSION = '4.0.3';
+	const VERSION = '4.1.0';
 	
 	const SOURCE = 'sdk-php';
 

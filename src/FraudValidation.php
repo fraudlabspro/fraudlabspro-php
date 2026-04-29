@@ -72,6 +72,7 @@ class FraudValidation
 			'email_domain'  => (isset($params['billing']['email'])) ? substr($params['billing']['email'], strpos($params['billing']['email'], '@') + 1) : '',
 			'email_hash'    => (isset($params['billing']['email'])) ? $this->doHash($params['billing']['email']) : '',
 			'user_phone'    => (isset($params['billing']['phone'])) ? preg_replace('/\D/', '', $params['billing']['phone']) : '',
+			'bill_to'       => (isset($params['billing']['billTo'])) ? $params['billing']['billTo'] : '',
 			'bill_addr'     => (isset($params['billing']['address'])) ? $params['billing']['address'] : '',
 			'bill_city'     => (isset($params['billing']['city'])) ? $params['billing']['city'] : '',
 			'bill_state'    => (isset($params['billing']['state'])) ? $params['billing']['state'] : '',
