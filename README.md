@@ -26,9 +26,9 @@ To learn more about installation, usage, and code examples, please visit the dev
 
 | Feedback Status                      | Description                                 |
 | ------------------------------------ | ------------------------------------------- |
-| FraudLabsPro\FraudValidation::APPROVE          | Approves an order that under review status. |
-| FraudLabsPro\FraudValidation::REJECT           | Rejects an order than under review status.  |
-| FraudLabsPro\FraudValidation::REJECT_BLACKLIST | Rejects and blacklists an order.            |
+| FraudLabsPro\Order::APPROVE          | Approves an order that under review status. |
+| FraudLabsPro\Order::REJECT           | Rejects an order than under review status.  |
+| FraudLabsPro\Order::REJECT_BLACKLIST | Rejects and blacklists an order.            |
 
 
 LICENCE

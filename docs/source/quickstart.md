@@ -24,7 +24,7 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$fraudlabspro = new FraudLabsPro\FraudValidation($config);
+$fraudlabspro = new FraudLabsPro\Order($config);
 
 // Order details
 $orderDetails = [
@@ -39,8 +39,8 @@ $orderDetails = [
 		'quantity'		=> 1,
 		
 		// Please refer reference section for full list of payment methods
-		'paymentGateway'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
-		'paymentMethod'	=> FraudLabsPro\FraudValidation::CREDIT_CARD,
+		'paymentGateway'	=> FraudLabsPro\Order::CREDIT_CARD,
+		'paymentMethod'	=> FraudLabsPro\Order::CREDIT_CARD,
 	],
 
 	'card'		=> [
@@ -85,9 +85,9 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$fraudlabspro = new FraudLabsPro\FraudValidation($config);
+$fraudlabspro = new FraudLabsPro\Order($config);
 
-$result = $fraudlabspro->getTransaction('20170906MXFHSTRF', FraudLabsPro\FraudValidation::FLP_ID);
+$result = $fraudlabspro->getTransaction('20170906MXFHSTRF', FraudLabsPro\Order::FLP_ID);
 ```
 
 ### Feedback
@@ -100,12 +100,12 @@ require_once __DIR__.'/vendor/autoload.php';
 
 // Configures FraudLabs Pro API key
 $config = new FraudLabsPro\Configuration('YOUR_API_KEY');
-$fraudlabspro = new FraudLabsPro\FraudValidation($config);
+$fraudlabspro = new FraudLabsPro\Order($config);
 
 $fraudlabspro->feedback([
 	'id'		=> '20170906MXFHSTRF',
 	// Please refer to reference section for full list of feedback statuses
-	'status'	=> FraudLabsPro\FraudValidation::APPROVE,
+	'status'	=> FraudLabsPro\Order::APPROVE,
 	'note'		=> 'This customer made a valid purchase before.',
 ]);
 

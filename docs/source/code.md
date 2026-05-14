@@ -7,9 +7,9 @@ Configure FraudLabs Pro API key.
 :param str api_key: (Required) FraudLabs Pro API key.
 ```
 
-## FraudValidation Class
-```{py:class} FraudValidation(config_object)
-Initiate FraudValidation class.
+## Order Class
+```{py:class} Order(config_object)
+Initiate Order class.
 
 :param object config_object: (Required) The configuration object returned by Configuration Class.
 ```
@@ -18,7 +18,7 @@ Initiate FraudValidation class.
 Retrieve an existing transaction from FraudLabs Pro fraud detection system.
 
 :param str id: (Required) FraudLabs Pro transaction ID or Order ID.
-:param str type: (Required) ID type. Either: **FraudLabsPro\FraudValidation::FLP_ID** or **FraudLabsPro\FraudValidation::ORDER_ID**
+:param str type: (Required) ID type. Either: **FraudLabsPro\Order::FLP_ID** or **FraudLabsPro\Order::ORDER_ID**
 
 :return: Returns the details about the transaction in JSON object.
 :rtype: Object
