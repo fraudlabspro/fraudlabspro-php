@@ -82,6 +82,7 @@ class Order
 			// Order information
 			'user_order_id'   => (isset($params['order']['orderId'])) ? $params['order']['orderId'] : '',
 			'user_order_memo' => (isset($params['order']['note'])) ? $params['order']['note'] : '',
+			'items'           => (isset($params['order']['items'])) ? $params['order']['items'] : '',
 			'amount'          => (isset($params['order']['amount'])) ? number_format($params['order']['amount'], 2, '.', '') : 0,
 			'quantity'        => (isset($params['order']['quantity'])) ? $params['order']['quantity'] : 1,
 			'currency'        => (isset($params['order']['currency'])) ? $params['order']['currency'] : 'USD',
