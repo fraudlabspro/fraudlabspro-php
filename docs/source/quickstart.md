@@ -35,9 +35,10 @@ $orderDetails = [
 		'orderId'		=> '67398',
 		'note'			=> 'Online shop',
 		'currency'		=> 'USD',
-		'amount'		=> '79.89',
-		'quantity'		=> 1,
-		
+		'amount'		=> '119.98',
+		'quantity'		=> 2,
+		'items'			=> '[{"sku": "SKU-1001","quantity": 1,"price": 99.99,"type": "physical","name": "Wireless Headphones","purchase_type": "one-time purchase"},{"sku": "SKU-2005","quantity": 1,"price": 19.99,"type": "downloadable","name": "Country List"}]',
+
 		// Please refer reference section for full list of payment methods
 		'paymentGateway'	=> FraudLabsPro\Order::CREDIT_CARD,
 		'paymentMethod'	=> FraudLabsPro\Order::CREDIT_CARD,
