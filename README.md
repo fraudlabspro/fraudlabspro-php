@@ -1,6 +1,6 @@
 FraudLabs Pro PHP SDK
 ========================
-This PHP module enables user to easily implement fraud detection feature into their solution using the API from https://www.fraudlabspro.com.
+This PHP module enables user to easily implement fraud detection feature into their solution using the API from [FraudLabs Pro](https://www.fraudlabspro.com).
 
 Below are the features of this PHP module:
 - Fraud analysis and scoring
@@ -14,10 +14,10 @@ Below are the features of this PHP module:
 - Email notification of fraud orders
 - Mobile app notification of fraud orders
 
-This module requires API key to function. You may subscribe a free API key at https://www.fraudlabspro.com
+This module requires an API key to function. You can [sign up for a free API key at FraudLabs Pro](https://www.fraudlabspro.com/checkout-micro).
 
 # Developer Documentation
-To learn more about installation, usage, and code examples, please visit the developer documentation at [https://fraudlabspro-php.readthedocs.io/en/latest/index.html.](https://fraudlabspro-php.readthedocs.io/en/latest/index.html)
+For installation instructions, usage, and code examples, refer to the [Developer Documentation](https://fraudlabspro-php.readthedocs.io/en/latest/index.html).
 
 
 # Reference
